@@ -11,4 +11,10 @@ public class ContaCorrente extends Conta {
     public void aplicarTaxaServico() {
         // TODO
     }
+
+	@Override
+    public String getDescricao() {
+        return "Tipo: Corrente | " + super.getDescricao();
+    }
+
 }

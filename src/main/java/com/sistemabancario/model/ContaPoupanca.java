@@ -10,3 +10,9 @@ public class ContaPoupanca extends Conta {
 
     public void aplicarTaxaRendimento(double taxaPercentual) {
     }
+
+	@Override
+    public String getDescricao() {
+        return "Tipo: Poupança | " + super.getDescricao();
+    }
+}

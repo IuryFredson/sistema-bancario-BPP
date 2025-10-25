@@ -29,4 +29,27 @@ public abstract class Conta {
     public Cliente getCliente() {
         return cliente;
     }
+
+    public String getDescricao() {
+
+        String nomeCliente;
+
+        if (cliente != null) {
+            nomeCliente = cliente.getNome();
+
+        } else {
+            nomeCliente = "Desconhecido";
+        }
+
+        return String.format(
+
+            "Cliente: %-20s | Conta: %-10s | Saldo: R$ %.2f",
+            nomeCliente,
+            numeroDaConta,
+            saldo
+
+        );
+
+    }
+
 }

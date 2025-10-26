@@ -4,11 +4,13 @@ public class ContaPoupanca extends Conta {
 
     private double taxaDeRendimento;
 
-    public ContaPoupanca(String numeroDaConta, Cliente cliente, double saldoInicial) {
-        //TODO
+    public ContaPoupanca(String numeroDaConta, Cliente cliente, double saldoInicial, double inputTaxaDeRendimento) {
+        super (numeroDaConta, cliente, saldoInicial);
+        this.taxaDeRendimento = inputTaxaDeRendimento;
     }
 
-    public void aplicarTaxaRendimento(double taxaPercentual) {
+    public void aplicarTaxaRendimento() {
+        this.saldo += taxaDeRendimento * this.saldo;
     }
 
 	@Override

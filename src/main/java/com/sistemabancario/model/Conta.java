@@ -12,22 +12,39 @@ public abstract class Conta {
         this.saldo = saldoInicial;
     }
 
-    public abstract void depositar(double valor);
+    public void depositar(double valor){
+        this.saldo += valor;
+    }
 
-    public abstract boolean sacar(double valor);
+    public boolean sacar(double valor){
+        if (this.saldo >= valor){
+            this.saldo -=  valor;
+            return true;
+        }
+        return false;
+    }
 
-    public abstract boolean transferir(Conta contaDestino, double valor);
+    public boolean transferir(Conta contaDestino, double valor){
+        if (this.saldo >= valor){
+            this.saldo -= valor;
+            contaDestino.saldo += valor;
+            return true;
+        }
+        return false;
+    }
 
-    public double getSaldo() {
-        return saldo;
+    public double getSaldo() { 
+        double cloneSaldo = this.saldo;
+        return cloneSaldo;
     }
 
     public String getNumeroDaConta() {
-        return numeroDaConta;
+        String cloneNumeroDaConta = this.numeroDaConta;
+        return cloneNumeroDaConta;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cliente getCliente() throws CloneNotSupportedException {
+        return cliente.clone();
     }
 
     public String getDescricao() {

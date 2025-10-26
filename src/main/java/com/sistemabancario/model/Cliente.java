@@ -1,6 +1,11 @@
 package com.sistemabancario.model;
 
-public class Cliente {
+public class Cliente implements Cloneable{
+
+    @Override
+    public Cliente clone() throws CloneNotSupportedException {
+        return (Cliente) super.clone();
+    }
 
     private String nome;
     private String cpf;
@@ -11,11 +16,13 @@ public class Cliente {
     }
 
     public String getNome() {
-        return nome;
+        String cloneNome = this.nome;
+        return cloneNome;
     }
 
     public String getCpf() {
-        return cpf;
+        String cloneCpf = this.cpf;
+        return cloneCpf;
     }
 
     @Override

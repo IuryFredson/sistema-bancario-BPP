@@ -5,12 +5,13 @@ import com.sistemabancario.model.ContaCorrente;
 import com.sistemabancario.model.ContaPoupanca;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class Banco {
 
-    private String nomeDoBanco;
-    private ArrayList<Conta> todasContas;
+    private final String nomeDoBanco;
+    private final List<Conta> todasContas;
 
     public Banco(String nomeDoBanco) {
         this.todasContas = new ArrayList<>();
@@ -21,7 +22,7 @@ public class Banco {
         return nomeDoBanco;
     }
 
-    public ArrayList<Conta> getTodasContas() {
+    public List<Conta> getTodasContas() {
         return todasContas;
     }
 
@@ -35,9 +36,9 @@ public class Banco {
 
     }
 
-    public ArrayList<ContaPoupanca> getContasPoupanca() {
+    public List<ContaPoupanca> getContasPoupanca() {
 
-        ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>();
+        List<ContaPoupanca> contasPoupanca = new ArrayList<>();
         for (Conta conta : todasContas) {
             if (conta instanceof ContaPoupanca contaPoupanca) {
                 contasPoupanca.add(contaPoupanca);
@@ -49,8 +50,9 @@ public class Banco {
 
     public double calcularSaldoTotalContasPoupanca() {
 
-        ArrayList<ContaPoupanca> contasPoupanca = getContasPoupanca();
+        List<ContaPoupanca> contasPoupanca = getContasPoupanca();
         double saldoTotal = 0.0;
+
         for (ContaPoupanca conta : contasPoupanca) {
             saldoTotal += conta.getSaldo();
         }
@@ -58,9 +60,9 @@ public class Banco {
 
     }
 
-    public ArrayList<ContaCorrente> getContasCorrente() {
+    public List<ContaCorrente> getContasCorrente() {
 
-        ArrayList<ContaCorrente> contasCorrente = new ArrayList<>();
+        List<ContaCorrente> contasCorrente = new ArrayList<>();
         for (Conta conta : todasContas) {
             if (conta instanceof ContaCorrente contaCorrente) {
                 contasCorrente.add(contaCorrente);
@@ -72,8 +74,9 @@ public class Banco {
 
     public double calcularSaldoTotalContasCorrente() {
 
-        ArrayList<ContaCorrente> contasCorrente = getContasCorrente();
+        List<ContaCorrente> contasCorrente = getContasCorrente();
         double saldoTotal = 0.0;
+
         for (ContaCorrente conta : contasCorrente) {
             saldoTotal += conta.getSaldo();
         }
@@ -81,9 +84,9 @@ public class Banco {
 
     }
 
-    public ArrayList<Conta> listarContasPorSaldoDescendente() {
+    public List<Conta> listarContasPorSaldoDescendente() {
 
-        ArrayList<Conta> contasOrdemDescendente = new ArrayList<>(todasContas);
+        List<Conta> contasOrdemDescendente = new ArrayList<>(todasContas);
         contasOrdemDescendente.sort(Comparator.comparingDouble(Conta::getSaldo).reversed());
         return contasOrdemDescendente;
 

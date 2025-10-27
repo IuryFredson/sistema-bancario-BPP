@@ -1,6 +1,11 @@
 package com.sistemabancario.model;
 
-public abstract class Conta {
+public abstract class Conta implements Cloneable{
+
+    @Override
+    public Conta clone() throws CloneNotSupportedException {
+        return (Conta) super.clone();
+    }
 
     protected String numeroDaConta;
     protected Cliente cliente;

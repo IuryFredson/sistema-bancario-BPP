@@ -19,11 +19,16 @@ public class Banco {
     }
 
     public String getNomeDoBanco() {
-        return nomeDoBanco;
+        String cloneNome = nomeDoBanco;
+        return cloneNome;
     }
 
-    public List<Conta> getTodasContas() {
-        return todasContas;
+    public List<Conta> getTodasContas() throws CloneNotSupportedException {
+        List<Conta> copiaListaDeContas = new ArrayList<>();
+        for (Conta conta : todasContas){
+            copiaListaDeContas.add((Conta) conta.clone());
+        }
+        return copiaListaDeContas;
     }
 
     public double calcularSaldoTotalContas() {

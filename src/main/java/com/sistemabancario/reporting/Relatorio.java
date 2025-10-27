@@ -2,7 +2,8 @@ package com.sistemabancario.reporting;
 
 import com.sistemabancario.model.Conta;
 import com.sistemabancario.service.Banco;
-import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class Relatorio {
@@ -21,8 +22,15 @@ public class Relatorio {
 
             "Relatório de todas as Contas Poupança cadastradas no banco: " +
             this.banco.getNomeDoBanco()
-            
+
         );
+
+        if (totalContasPoupanca == 0){
+            System.out.println("Nenhuma conta poupança cadastrada.");
+            System.out.println("Portanto o Saldo Total é: R$ 0.0 \n");
+            return;
+        }
+
         System.out.println("Total de Contas Poupança cadastradas: " + totalContasPoupanca);
         System.out.println("Saldo Total das Contas Poupança: R$ " + saldoTotalContasPoupanca + "\n");
 
@@ -39,6 +47,13 @@ public class Relatorio {
             this.banco.getNomeDoBanco()
 
         );
+
+        if (todasContasCorrente == 0) {
+            System.out.println("Nenhuma conta poupança cadastrada.");
+            System.out.println("Portanto o Saldo Total é: R$ 0.0 \n");
+            return;
+        }
+
         System.out.println("Total de Contas Corrente cadastradas: " + todasContasCorrente);
         System.out.println("Saldo Total das Contas Corrente: R$ " + saldoTotalContasCorrente + "\n");
 
@@ -62,13 +77,13 @@ public class Relatorio {
 
     public void exibirTodasContas() {
 
-        ArrayList<Conta> contasOrdemDescendente = this.banco.listarContasPorSaldoDescendente();
+        List<Conta> contasOrdemDescendente = this.banco.listarContasPorSaldoDescendente();
 
         System.out.println(
 
             "Exibindo todas as contas cadastradas no banco " +
             this.banco.getNomeDoBanco() +
-            " mostradas em ordem descente de saldo:"
+            " mostradas em ordem descendente de saldo:"
 
         );
 

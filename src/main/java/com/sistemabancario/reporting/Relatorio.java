@@ -59,7 +59,7 @@ public class Relatorio {
 
     }
 
-    public void exibirTotalContas() throws CloneNotSupportedException {
+    public void exibirSaldoTotalContas() throws CloneNotSupportedException {
 
         int totalDeContas = this.banco.getTodasContas().size();
         double saldoTotalDeContas = this.banco.calcularSaldoTotalContas();

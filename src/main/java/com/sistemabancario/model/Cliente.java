@@ -16,13 +16,11 @@ public class Cliente implements Cloneable{
     }
 
     public String getNome() {
-        String cloneNome = this.nome;
-        return cloneNome;
+        return this.nome;
     }
 
     public String getCpf() {
-        String cloneCpf = this.cpf;
-        return cloneCpf;
+        return this.cpf;
     }
 
     @Override

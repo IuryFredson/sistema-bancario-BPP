@@ -25,7 +25,7 @@ public abstract class Conta implements Cloneable{
 
     public boolean transferir(Conta contaDestino, double valor){
         if (this.saldo >= valor){
-            this.sacar(valor);
+            this.saldo -= valor;
             contaDestino.depositar(valor);
             return true;
         }
@@ -33,13 +33,11 @@ public abstract class Conta implements Cloneable{
     }
 
     public double getSaldo() { 
-        double cloneSaldo = this.saldo;
-        return cloneSaldo;
+        return this.saldo;
     }
 
     public String getNumeroDaConta() {
-        String cloneNumeroDaConta = this.numeroDaConta;
-        return cloneNumeroDaConta;
+        return this.numeroDaConta;
     }
 
     public Cliente getCliente() throws CloneNotSupportedException {

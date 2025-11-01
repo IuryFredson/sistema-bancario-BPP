@@ -13,16 +13,17 @@ public class Banco {
     private final String nomeDoBanco;
     private final List<Conta> todasContas;
     private final double taxaDeRendimento;
+    private final double taxaDeServico;
 
-    public Banco(String nomeDoBanco, double taxaDeRendimento) {
+    public Banco(String nomeDoBanco, double taxaDeRendimento, double taxaDeServico) {
         this.todasContas = new ArrayList<>();
         this.nomeDoBanco = nomeDoBanco;
         this.taxaDeRendimento = taxaDeRendimento;
+        this.taxaDeServico = taxaDeServico;
     }
 
     public String getNomeDoBanco() {
-        String cloneNome = nomeDoBanco;
-        return cloneNome;
+        return this.nomeDoBanco;
     }
 
     public List<Conta> getTodasContas() throws CloneNotSupportedException {
@@ -101,6 +102,18 @@ public class Banco {
 
     public void aplicarTaxaRendimento(ContaPoupanca conta) {
         conta.depositar(conta.getSaldo() * this.taxaDeRendimento);
+    }
+
+    public double getTaxaRendimento(){
+        return this.taxaDeRendimento;
+    }
+
+    public double getTaxaServico(){
+        return this.taxaDeServico;
+    }
+
+    public String gerarNumeroDaConta() throws CloneNotSupportedException{
+        return String.valueOf(this.getTodasContas().size());
     }
 
 }

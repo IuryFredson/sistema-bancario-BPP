@@ -1,5 +1,6 @@
 package com.sistemabancario.service;
 
+import com.sistemabancario.model.Cliente;
 import com.sistemabancario.model.Conta;
 import com.sistemabancario.model.ContaCorrente;
 import com.sistemabancario.model.ContaPoupanca;
@@ -20,6 +21,20 @@ public class Banco {
         this.nomeDoBanco = nomeDoBanco;
         this.taxaDeRendimento = taxaDeRendimento;
         this.taxaDeServico = taxaDeServico;
+    }
+
+    public void construirContaCorrente(String nome, String cpf, double saldoInicial) throws CloneNotSupportedException{
+        String nr = this.gerarNumeroDaConta();
+        Cliente cliente = new Cliente(nome, cpf);
+        ContaCorrente conta = new ContaCorrente(nr, cliente, saldoInicial, this.taxaDeServico);
+        this.todasContas.add(conta);
+    }
+
+    public void construirContaPoupanca(String nome, String cpf, double saldoInicial) throws CloneNotSupportedException{
+        String numeroGerado = this.gerarNumeroDaConta();
+        Cliente cliente = new Cliente(nome, cpf);
+        ContaPoupanca conta = new ContaPoupanca(numeroGerado, cliente, saldoInicial);
+        this.todasContas.add(conta);
     }
 
     public String getNomeDoBanco() {
@@ -78,6 +93,13 @@ public class Banco {
         }
         return contasCorrente;
 
+    }
+
+    public Conta getContaPeloCodigo(String codigo){
+        for (Conta conta : this.todasContas){
+            if (conta.getNumeroDaConta().equals(codigo)){ return conta; }
+        }
+        throw new RuntimeException("Conta não encontrada para o código: " + codigo);
     }
 
     public double calcularSaldoTotalContasCorrente() {

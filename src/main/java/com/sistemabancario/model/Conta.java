@@ -21,7 +21,7 @@ public abstract class Conta implements Cloneable{
         this.saldo += valor;
     }
 
-    protected abstract saidasDeOperacoes sacar(double valor);
+    public abstract saidasDeOperacoes sacar(double valor);
 
     public boolean transferir(Conta contaDestino, double valor){
         if (this.saldo >= valor){

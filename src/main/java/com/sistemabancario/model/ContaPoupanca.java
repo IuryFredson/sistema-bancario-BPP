@@ -2,15 +2,17 @@ package com.sistemabancario.model;
 
 public class ContaPoupanca extends Conta {
 
-    private double taxaDeRendimento;
-
-    public ContaPoupanca(String numeroDaConta, Cliente cliente, double saldoInicial, double inputTaxaDeRendimento) {
+    public ContaPoupanca(String numeroDaConta, Cliente cliente, double saldoInicial) {
         super (numeroDaConta, cliente, saldoInicial);
-        this.taxaDeRendimento = inputTaxaDeRendimento;
     }
 
-    public void aplicarTaxaRendimento() {
-        this.saldo += taxaDeRendimento * this.saldo;
+    @Override
+    public saidasDeOperacoes sacar(double valor) {
+        if (this.saldo >= valor){
+            this.saldo -=  valor;
+            return saidasDeOperacoes.OperacaoBemSucedida;
+        }
+        return saidasDeOperacoes.saldoMenorQueSaque;
     }
 
 	@Override

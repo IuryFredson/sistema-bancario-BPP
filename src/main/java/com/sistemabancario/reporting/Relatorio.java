@@ -1,7 +1,10 @@
 package com.sistemabancario.reporting;
 
 import com.sistemabancario.model.Conta;
+import com.sistemabancario.model.ContaCorrente;
+import com.sistemabancario.model.ContaPoupanca;
 import com.sistemabancario.service.Banco;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -59,7 +62,7 @@ public class Relatorio {
 
     }
 
-    public void exibirTotalContas() {
+    public void exibirSaldoTotalContas() throws CloneNotSupportedException {
 
         int totalDeContas = this.banco.getTodasContas().size();
         double saldoTotalDeContas = this.banco.calcularSaldoTotalContas();
@@ -97,6 +100,22 @@ public class Relatorio {
         }
 
         System.out.println();
+    }
+
+    public void exibirContasCorrente(){
+        List<ContaCorrente> contasCorrente = banco.getContasCorrente();
+        contasCorrente.sort(Comparator.comparingDouble(Conta::getSaldo).reversed());
+        for (Conta conta: contasCorrente){
+            System.out.println(conta.getDescricao());
+        }
+    }
+
+    public void exibirContasPoupanca(){
+        List<ContaPoupanca> contasPoupanca = banco.getContasPoupanca();
+        contasPoupanca.sort(Comparator.comparingDouble(Conta::getSaldo).reversed());
+        for (Conta conta: contasPoupanca){
+            System.out.println(conta.getDescricao());
+        }
     }
 
 }

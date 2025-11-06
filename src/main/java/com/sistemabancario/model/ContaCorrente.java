@@ -2,15 +2,24 @@ package com.sistemabancario.model;
 
 public class ContaCorrente extends Conta {
 
-    private double taxaDeServico;
+    private final double taxaDeServico;
 
-    public ContaCorrente(String numeroDaConta, Cliente cliente, double saldoInicial, double inputTaxaDeServico) {
+    public ContaCorrente(String numeroDaConta, Cliente cliente, double saldoInicial, double taxaDeServico) {
         super(numeroDaConta, cliente, saldoInicial);
-        this.taxaDeServico = inputTaxaDeServico;
+        this.taxaDeServico = taxaDeServico;
     }
 
-    public void aplicarTaxaServico() {
-        this.saldo -= this.saldo >= this.taxaDeServico ? this.taxaDeServico : null; 
+    @Override
+    public saidasDeOperacoes sacar(double valor) {
+        if (this.saldo < valor){
+            return saidasDeOperacoes.saldoMenorQueSaque;
+        }
+        else if (this.saldo < valor + (valor * this.taxaDeServico)){
+            return saidasDeOperacoes.saldoMenorQueTarifa;
+        }
+        this.saldo -= valor;
+        this.saldo -= valor * this.taxaDeServico;
+        return saidasDeOperacoes.OperacaoBemSucedida;
     }
 
 	@Override

@@ -1,6 +1,11 @@
 package com.sistemabancario.model;
 
-public abstract class Conta {
+public abstract class Conta implements Cloneable{
+
+    @Override
+    public Conta clone() throws CloneNotSupportedException {
+        return (Conta) super.clone();
+    }
 
     protected String numeroDaConta;
     protected Cliente cliente;
@@ -16,35 +21,33 @@ public abstract class Conta {
         this.saldo += valor;
     }
 
-    public boolean sacar(double valor){
-        if (this.saldo >= valor){
-            this.saldo -=  valor;
-            return true;
-        }
-        return false;
-    }
+    public abstract saidasDeOperacoes sacar(double valor);
 
     public boolean transferir(Conta contaDestino, double valor){
         if (this.saldo >= valor){
             this.saldo -= valor;
-            contaDestino.saldo += valor;
+            contaDestino.depositar(valor);
             return true;
         }
         return false;
     }
 
     public double getSaldo() { 
-        double cloneSaldo = this.saldo;
-        return cloneSaldo;
+        return this.saldo;
     }
 
     public String getNumeroDaConta() {
-        String cloneNumeroDaConta = this.numeroDaConta;
-        return cloneNumeroDaConta;
+        return this.numeroDaConta;
     }
 
     public Cliente getCliente() throws CloneNotSupportedException {
         return cliente.clone();
+    }
+    
+    public enum saidasDeOperacoes{
+        OperacaoBemSucedida,
+        saldoMenorQueSaque,
+        saldoMenorQueTarifa;
     }
 
     public String getDescricao() {

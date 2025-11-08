@@ -8,31 +8,57 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-
 public class Banco {
 
     private final String nomeDoBanco;
     private final List<Conta> todasContas;
+    private final List<Cliente> listaDeClientes;
     private final double taxaDeRendimento;
     private final double taxaDeServico;
 
     public Banco(String nomeDoBanco, double taxaDeRendimento, double taxaDeServico) {
         this.todasContas = new ArrayList<>();
+        this.listaDeClientes = new ArrayList<>();
         this.nomeDoBanco = nomeDoBanco;
         this.taxaDeRendimento = taxaDeRendimento;
         this.taxaDeServico = taxaDeServico;
     }
 
+    private Cliente buscarClientePorCpf(String cpf) {
+        for (Cliente cliente : this.listaDeClientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    private Cliente criarNovoCliente(String nome, String cpf) {
+        Cliente novoCliente = new Cliente(nome, cpf);
+        this.listaDeClientes.add(novoCliente);
+        return novoCliente;
+    }
+
     public void construirContaCorrente(String nome, String cpf, double saldoInicial) throws CloneNotSupportedException{
         String nr = this.gerarNumeroDaConta();
-        Cliente cliente = new Cliente(nome, cpf);
+
+        Cliente cliente = this.buscarClientePorCpf(cpf);
+        if (cliente == null) {
+            cliente = this.criarNovoCliente(nome, cpf);
+        }
+
         ContaCorrente conta = new ContaCorrente(nr, cliente, saldoInicial, this.taxaDeServico);
         this.todasContas.add(conta);
     }
 
     public void construirContaPoupanca(String nome, String cpf, double saldoInicial) throws CloneNotSupportedException{
         String numeroGerado = this.gerarNumeroDaConta();
-        Cliente cliente = new Cliente(nome, cpf);
+
+        Cliente cliente = this.buscarClientePorCpf(cpf);
+        if (cliente == null) {
+            cliente = this.criarNovoCliente(nome, cpf);
+        }
+
         ContaPoupanca conta = new ContaPoupanca(numeroGerado, cliente, saldoInicial);
         this.todasContas.add(conta);
     }
@@ -50,17 +76,14 @@ public class Banco {
     }
 
     public double calcularSaldoTotalContas() {
-
         double saldoTotal = 0.0;
         for (Conta conta : todasContas) {
             saldoTotal += conta.getSaldo();
         }
         return saldoTotal;
-
     }
 
     public List<ContaPoupanca> getContasPoupanca() {
-
         List<ContaPoupanca> contasPoupanca = new ArrayList<>();
         for (Conta conta : todasContas) {
             if (conta instanceof ContaPoupanca contaPoupanca) {
@@ -68,23 +91,18 @@ public class Banco {
             }
         }
         return contasPoupanca;
-
     }
 
     public double calcularSaldoTotalContasPoupanca() {
-
         List<ContaPoupanca> contasPoupanca = getContasPoupanca();
         double saldoTotal = 0.0;
-
         for (ContaPoupanca conta : contasPoupanca) {
             saldoTotal += conta.getSaldo();
         }
         return saldoTotal;
-
     }
 
     public List<ContaCorrente> getContasCorrente() {
-
         List<ContaCorrente> contasCorrente = new ArrayList<>();
         for (Conta conta : todasContas) {
             if (conta instanceof ContaCorrente contaCorrente) {
@@ -92,7 +110,6 @@ public class Banco {
             }
         }
         return contasCorrente;
-
     }
 
     public Conta getContaPeloCodigo(String codigo){
@@ -103,23 +120,18 @@ public class Banco {
     }
 
     public double calcularSaldoTotalContasCorrente() {
-
         List<ContaCorrente> contasCorrente = getContasCorrente();
         double saldoTotal = 0.0;
-
         for (ContaCorrente conta : contasCorrente) {
             saldoTotal += conta.getSaldo();
         }
         return saldoTotal;
-
     }
 
     public List<Conta> listarContasPorSaldoDescendente() {
-
         List<Conta> contasOrdemDescendente = new ArrayList<>(todasContas);
         contasOrdemDescendente.sort(Comparator.comparingDouble(Conta::getSaldo).reversed());
         return contasOrdemDescendente;
-
     }
 
     public void aplicarTaxaRendimento() {
@@ -139,5 +151,4 @@ public class Banco {
     public String gerarNumeroDaConta() throws CloneNotSupportedException{
         return String.valueOf(this.getTodasContas().size());
     }
-
 }

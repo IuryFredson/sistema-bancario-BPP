@@ -122,8 +122,10 @@ public class Banco {
 
     }
 
-    public void aplicarTaxaRendimento(ContaPoupanca conta) {
-        conta.depositar(conta.getSaldo() * this.taxaDeRendimento);
+    public void aplicarTaxaRendimento() {
+        for (Conta conta : this.getContasPoupanca()){
+            conta.depositar(conta.getSaldo() * this.taxaDeRendimento);
+        }
     }
 
     public double getTaxaRendimento(){

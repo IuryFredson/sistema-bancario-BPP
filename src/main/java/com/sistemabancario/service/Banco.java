@@ -39,19 +39,19 @@ public class Banco {
         return novoCliente;
     }
 
-    public void construirContaCorrente(String nome, String cpf, double saldoInicial){
-        String nr = this.gerarNumeroDaConta();
+    public void cadastrarContaCorrente(String nome, String cpf, double saldoInicial){
+        String numeroDaConta = this.gerarNumeroDaConta();
 
         Cliente cliente = this.buscarClientePorCpf(cpf);
         if (cliente == null) {
             cliente = this.criarNovoCliente(nome, cpf);
         }
 
-        ContaCorrente conta = new ContaCorrente(nr, cliente, saldoInicial, this.taxaDeServico);
+        ContaCorrente conta = new ContaCorrente(numeroDaConta, cliente, saldoInicial, this.taxaDeServico);
         this.todasContas.add(conta);
     }
 
-    public void construirContaPoupanca(String nome, String cpf, double saldoInicial){
+    public void cadastrarContaPoupanca(String nome, String cpf, double saldoInicial){
         String numeroGerado = this.gerarNumeroDaConta();
 
         Cliente cliente = this.buscarClientePorCpf(cpf);
@@ -125,12 +125,12 @@ public class Banco {
 
     }
 
-    public Conta getContaPeloCodigo(String codigo){
+    public Conta getContaPeloNumero(String numeroDaConta){
 
         for (Conta conta : this.todasContas){
-            if (conta.getNumeroDaConta().equals(codigo)){ return conta; }
+            if (conta.getNumeroDaConta().equals(numeroDaConta)){ return conta; }
         }
-        throw new RuntimeException("Conta não encontrada para o código: " + codigo);
+        throw new RuntimeException("Conta não encontrada para o código: " + numeroDaConta);
 
     }
 

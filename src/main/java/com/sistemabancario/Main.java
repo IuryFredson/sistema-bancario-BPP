@@ -51,10 +51,10 @@ public class Main{
             ler.nextLine();
 
             if (tipoDaConta == 1){
-                TSIbank.construirContaCorrente(nome, cpf, saldoInicial);
+                TSIbank.cadastrarContaCorrente(nome, cpf, saldoInicial);
             }
             else if (tipoDaConta == 2){
-                TSIbank.construirContaPoupanca(nome, cpf, saldoInicial);
+                TSIbank.cadastrarContaPoupanca(nome, cpf, saldoInicial);
             }
 
             System.out.println("--> Sua conta foi criada!\n");
@@ -76,7 +76,7 @@ public class Main{
             System.out.println("Quanto você quer depositar?");
             double valorParaDepositar = ler.nextDouble();
             ler.nextLine();
-            TSIbank.getContaPeloCodigo(numeroDaConta).depositar(valorParaDepositar);
+            TSIbank.getContaPeloNumero(numeroDaConta).depositar(valorParaDepositar);
             System.out.println("Valor depositado com sucesso!");
         } catch( InputMismatchException e){
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -99,7 +99,7 @@ public class Main{
             System.out.println("Quanto você quer sacar?");
             double valorParaSacar = ler.nextDouble();
             ler.nextLine();
-            Conta conta = TSIbank.getContaPeloCodigo(numeroDaConta);
+            Conta conta = TSIbank.getContaPeloNumero(numeroDaConta);
             switch (conta.sacar(valorParaSacar)) {
             case OperacaoBemSucedida -> System.out.println("Operação bem sucedida!");
             case saldoMenorQueSaque -> {
@@ -137,8 +137,8 @@ public class Main{
         ler.nextLine();
 
         try {
-            Conta contaTransferir = TSIbank.getContaPeloCodigo(numeroDaContaTransferir);
-            Conta contaAlvo = TSIbank.getContaPeloCodigo(numeroDaContaAlvo);
+            Conta contaTransferir = TSIbank.getContaPeloNumero(numeroDaContaTransferir);
+            Conta contaAlvo = TSIbank.getContaPeloNumero(numeroDaContaAlvo);
 
             if (contaTransferir.transferir(contaAlvo, valorParaTransferir)){
                 System.out.println("Operação bem sucedida!");
